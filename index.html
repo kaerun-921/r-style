@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>るみ R style｜AI活用サポート</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Zen+Maru+Gothic:wght@400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg:      #fbf4e8;
+    --paper:   #fffdf8;
+    --brown:   #6b5743;
+    --brown2:  #8a7259;
+    --rose:    #e6a9a0;
+    --gold:    #c9a86a;
+    --ribbon:  #d8b98a;
+    --line:    #ead9c0;
+    --heart:   #e08f86;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    color: var(--brown);
+    background: var(--bg);
+    line-height: 1.9;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+
+  .bg-deco {
+    position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background:
+      radial-gradient(circle at 12% 18%, rgba(230,169,160,0.10) 0 14px, transparent 15px),
+      radial-gradient(circle at 88% 30%, rgba(201,168,106,0.10) 0 18px, transparent 19px),
+      radial-gradient(circle at 78% 82%, rgba(230,169,160,0.08) 0 16px, transparent 17px),
+      radial-gradient(circle at 20% 88%, rgba(201,168,106,0.08) 0 12px, transparent 13px),
+      var(--bg);
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(251,244,232,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  nav .brand { font-family:'Klee One', serif; font-weight:600; font-size:18px; color:var(--brown); letter-spacing:1px; }
+  nav .brand small { color: var(--gold); font-size:12px; }
+  nav ul { list-style:none; display:flex; gap:22px; }
+  nav a { color:var(--brown2); text-decoration:none; font-size:14px; transition:color .2s; }
+  nav a:hover { color:var(--rose); }
+  @media (max-width:600px){ nav ul{ gap:14px; font-size:13px; } nav .brand small{ display:none; } }
+
+  /* ===== HERO ===== */
+  .hero { text-align:center; padding: 64px 20px 48px; }
+  .hero .eyebrow { font-family:'Klee One', serif; font-size:13px; letter-spacing:3px; color:var(--brown2); margin-bottom:14px; }
+  .hero h1 {
+    font-family:'Klee One', serif; font-weight:600;
+    font-size: clamp(30px, 6.5vw, 52px); color:var(--brown);
+    letter-spacing:3px; margin-bottom:16px; text-shadow:0 2px 0 rgba(255,255,255,0.6);
+  }
+  .hero h1 .heart{ color:var(--heart); font-size:0.7em; }
+  .hero .lead {
+    font-size: clamp(14px,2.6vw,17px); color:var(--brown2);
+    max-width:600px; margin:0 auto 30px;
+  }
+  .btn {
+    display:inline-block; text-decoration:none;
+    font-family:'Zen Maru Gothic', sans-serif; font-weight:700; font-size:15px;
+    color:#fff; background:var(--rose);
+    padding:13px 36px; border-radius:30px;
+    box-shadow:0 5px 0 rgba(200,140,130,0.35);
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .btn:hover{ transform:translateY(2px); box-shadow:0 3px 0 rgba(200,140,130,0.35); }
+  .btn.gold{ background:var(--ribbon); box-shadow:0 5px 0 rgba(180,150,110,0.35); }
+
+  /* ===== SECTION shell ===== */
+  section { padding: 44px 0; }
+  .sec-head { text-align:center; margin-bottom:30px; }
+  .ribbon {
+    display:inline-block; position:relative;
+    font-family:'Klee One', serif; font-weight:600;
+    font-size: clamp(20px,4vw,28px); color:#fff; background:var(--ribbon);
+    padding:8px 34px; border-radius:30px;
+    box-shadow:0 4px 0 rgba(180,150,110,0.35);
+  }
+  .ribbon::before, .ribbon::after{ content:'❀'; font-size:0.7em; margin:0 4px; opacity:0.85; }
+  .sec-sub{ text-align:center; color:var(--brown2); font-size:14px; margin-top:-18px; margin-bottom:30px; }
+
+  /* ===== PROFILE ===== */
+  .profile { display:grid; grid-template-columns: 1fr 1.4fr; gap:30px; align-items:start; }
+  @media (max-width:740px){ .profile{ grid-template-columns:1fr; } }
+  .pcard {
+    background:var(--paper); border:1px solid var(--line); border-radius:24px;
+    padding:30px 28px; box-shadow:0 6px 18px rgba(180,150,110,0.10);
+    text-align:center;
+  }
+  .pcard .avatar{
+    width:140px; height:140px; margin:0 auto 16px; border-radius:50%;
+    background: radial-gradient(circle at 50% 38%, #fbe9da, #f2d3bf);
+    border:3px solid #fff; box-shadow:0 4px 14px rgba(180,150,110,0.2);
+    overflow:hidden;
+  }
+  .pcard .avatar img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .pcard .name{ font-family:'Klee One', serif; font-size:24px; color:var(--brown); }
+  .pcard .role{ font-size:13px; color:var(--gold); margin-bottom:14px; letter-spacing:1px; }
+  .pcard .desc{ font-size:14px; color:var(--brown2); }
+
+  ul.feel{ list-style:none; }
+  ul.feel li{
+    position:relative; padding:7px 0 7px 30px; font-size:15px; color:var(--brown);
+    border-bottom:1px dashed var(--line);
+  }
+  ul.feel li:last-child{ border-bottom:0; }
+  ul.feel li::before{ content:'♡'; position:absolute; left:6px; top:7px; color:var(--heart); }
+
+  .panel {
+    background:var(--paper); border:1px solid var(--line); border-radius:24px;
+    padding:26px 30px; box-shadow:0 6px 18px rgba(180,150,110,0.10);
+  }
+  .panel h3{ font-family:'Klee One', serif; font-size:18px; color:var(--brown); margin-bottom:12px; }
+  .note {
+    background:#fff6ee; border:1px dashed var(--ribbon); border-radius:16px;
+    padding:14px 20px; font-size:14px; color:var(--brown2); text-align:center; margin-top:18px;
+  }
+
+  /* ===== STRENGTH / SERVICE ===== */
+  .grid3 { display:grid; gap:20px; grid-template-columns:repeat(auto-fit, minmax(230px,1fr)); }
+  .card {
+    background:var(--paper); border:1px solid var(--line); border-radius:22px;
+    padding:24px 26px; box-shadow:0 6px 18px rgba(180,150,110,0.10);
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .card:hover{ transform:translateY(-4px); box-shadow:0 12px 26px rgba(180,150,110,0.18); }
+  .card .ico{ font-size:30px; display:block; margin-bottom:8px; }
+  .card h4{ font-family:'Klee One', serif; font-size:17px; color:var(--brown); margin-bottom:6px; }
+  .card p{ font-size:13.5px; color:var(--brown2); }
+
+  /* pricing table */
+  .price {
+    margin-top:30px; background:var(--paper); border:1px solid var(--line);
+    border-radius:24px; overflow:hidden; box-shadow:0 6px 18px rgba(180,150,110,0.10);
+  }
+  .price h3{ font-family:'Klee One', serif; text-align:center; color:var(--brown); padding:20px; font-size:19px; border-bottom:1px solid var(--line); }
+  .price table{ width:100%; border-collapse:collapse; }
+  .price td{ padding:15px 22px; font-size:14.5px; border-bottom:1px dashed var(--line); }
+  .price tr:last-child td{ border-bottom:0; }
+  .price td.item{ color:var(--brown); }
+  .price td.amt{ text-align:right; white-space:nowrap; color:var(--brown2); font-weight:700; }
+  .price td.amt .free{ color:var(--rose); }
+  @media (max-width:520px){ .price td{ padding:13px 16px; font-size:13.5px; } }
+
+  /* ===== CONTACT ===== */
+  .contact-box {
+    background: linear-gradient(180deg,#fff7ee 0%,#fdeee2 100%);
+    border:1px solid var(--line); border-radius:30px;
+    padding:40px 34px; box-shadow:0 8px 22px rgba(180,150,110,0.12);
+    max-width:680px; margin:0 auto;
+  }
+  .contact-box p.intro{ text-align:center; font-size:15px; color:var(--brown2); margin-bottom:28px; }
+  .field{ margin-bottom:20px; }
+  .field label{ display:block; font-size:14px; font-weight:700; color:var(--brown); margin-bottom:8px; }
+  .field input[type=text], .field input[type=email], .field textarea{
+    width:100%; font-family:inherit; font-size:15px; color:var(--brown);
+    background:#fff; border:1.5px solid var(--line); border-radius:14px; padding:12px 16px;
+  }
+  .field textarea{ resize:vertical; min-height:120px; }
+  .field input:focus, .field textarea:focus{ outline:none; border-color:var(--ribbon); }
+  .checks{ display:grid; gap:10px; }
+  .checks label{
+    display:flex; align-items:center; gap:10px; font-weight:400;
+    background:#fff; border:1.5px solid var(--line); border-radius:14px;
+    padding:11px 16px; font-size:14px; cursor:pointer; transition:border-color .2s, background .2s;
+  }
+  .checks label:hover{ border-color:var(--ribbon); background:#fffaf2; }
+  .checks input{ accent-color:var(--rose); width:17px; height:17px; }
+  .submit-row{ text-align:center; margin-top:28px; }
+  .embed-note{
+    text-align:center; font-size:12.5px; color:var(--brown2);
+    background:#fff; border:1px dashed var(--ribbon); border-radius:14px;
+    padding:12px 16px; margin-top:24px;
+  }
+  .form-btn-wrap{ text-align:center; margin-top:6px; }
+  .btn-contact{
+    display:inline-block; text-decoration:none;
+    font-family:'Zen Maru Gothic', sans-serif; font-weight:700;
+    font-size:17px; color:#fff; background:#5cae6e;
+    padding:16px 52px; border-radius:50px;
+    box-shadow:0 5px 0 rgba(70,140,90,0.35);
+    transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+  }
+  .btn-contact:hover{ background:#52a064; transform:translateY(2px); box-shadow:0 3px 0 rgba(70,140,90,0.35); }
+
+  /* footer */
+  footer{ text-align:center; padding:50px 20px 60px; }
+  footer .tagline{ font-family:'Klee One', serif; font-size:clamp(17px,4vw,24px); color:var(--brown); letter-spacing:2px; }
+  footer .tagline .heart{ color:var(--heart); }
+  footer .small{ font-size:12px; color:var(--brown2); margin-top:14px; }
+</style>
+</head>
+<body>
+<div class="bg-deco"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="wrap">
+    <div class="brand">るみ R style <small>｜AI活用サポート</small></div>
+    <ul>
+      <li><a href="#profile">プロフィール</a></li>
+      <li><a href="#service">強み・サービス</a></li>
+      <li><a href="#contact">お問い合わせ</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">— AI ACTIVATION SUPPORT —</p>
+    <h1>あなたに寄り添う<br>AI活用サポート</h1>
+    <p class="lead">ITが苦手でも大丈夫。やさしく、ていねいに。<br>想いをカタチにして、誰かの未来を明るくしたい人です。</p>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdF1DTNCzK1Reobkixn-2SOHFXejwcb-vwS6_T11anEGySmGA/viewform" target="_blank" rel="noopener" class="btn">無料で相談してみる</a>
+  </div>
+</header>
+
+<!-- SECTION 1: PROFILE -->
+<section id="profile">
+  <div class="wrap">
+    <div class="sec-head"><span class="ribbon">プロフィール</span></div>
+
+    <div class="profile">
+      <div class="pcard">
+        <div class="avatar"><img src="avatar.png" alt="るみ R style プロフィール画像"></div>
+        <div class="name">るみ（Rumi Tanino）</div>
+        <div class="role">AI活用サポーター</div>
+        <p class="desc">「コードが書けない立場」からAIを使いこなす、地域の経営者に寄り添うサポーター。近くにいてすぐ駆けつけられるのが強みです。</p>
+      </div>
+
+      <div class="panel">
+        <h3>わたしって、こんな人です</h3>
+        <ul class="feel">
+          <li>明るくて前向き／素直でまっすぐ</li>
+          <li>優しくて、相手の気持ちに寄り添える</li>
+          <li>やると決めたらやりきる粘り強さ</li>
+          <li>好奇心旺盛で、新しいことが好き！</li>
+          <li>コツコツ続けることが得意</li>
+        </ul>
+        <div class="note">
+          「やさしさ」と「芯の強さ」を両方持つタイプ。<br>
+          「わかりやすい！」「ありがとう！」が一番のやりがいです♡
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: STRENGTH / SERVICE -->
+<section id="service">
+  <div class="wrap">
+    <div class="sec-head"><span class="ribbon">強み・サービス</span></div>
+    <p class="sec-sub">ITが苦手な経営者・中小企業に寄り添う、AI活用サポートをお届けします。</p>
+
+    <div class="grid3">
+      <div class="card">
+        <span class="ico">🤖</span>
+        <h4>AI活用支援</h4>
+        <p>Claude・ChatGPTの導入から日々の使い方まで、やさしくサポート。</p>
+      </div>
+      <div class="card">
+        <span class="ico">📊</span>
+        <h4>Googleサービス支援</h4>
+        <p>スプレッドシートやGoogle Workspaceの活用をお手伝い。</p>
+      </div>
+      <div class="card">
+        <span class="ico">🎨</span>
+        <h4>資料・チラシ作成</h4>
+        <p>Canva・PowerPointで、伝わる資料をカタチにします。</p>
+      </div>
+      <div class="card">
+        <span class="ico">🖼️</span>
+        <h4>AI画像生成</h4>
+        <p>ChatGPT image2でプロフィール画像や販促画像を制作。</p>
+      </div>
+      <div class="card">
+        <span class="ico">👥</span>
+        <h4>AIツール導入・社員研修</h4>
+        <p>デモンストレーションで、現場に合わせた導入支援を行います。</p>
+      </div>
+      <div class="card">
+        <span class="ico">💚</span>
+        <h4>伴走サポート</h4>
+        <p>近くにいてすぐ駆けつけ、一歩ずつ前へ。困りごとに寄り添います。</p>
+      </div>
+    </div>
+
+    <div class="price">
+      <h3>料金のご案内</h3>
+      <table>
+        <tr><td class="item">初回30分ヒアリング＋プラン作成（ZOOM）</td><td class="amt"><span class="free">無料</span></td></tr>
+        <tr><td class="item">デモンストレーション（社員教育）</td><td class="amt">10,000円／回</td></tr>
+        <tr><td class="item">月額サポート（月1〜2回訪問＋チャット）</td><td class="amt">30,000〜50,000円／月</td></tr>
+        <tr><td class="item">追加訪問</td><td class="amt">20,000〜30,000円／回</td></tr>
+        <tr><td class="item">週1レクチャー（集中サポート）</td><td class="amt">30,000円／回</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <p class="sec-sub" style="margin-top:0;">「まずは話を聞いてみたい」だけでも大歓迎です。お気軽にどうぞ♡</p>
+
+    <div class="contact-box">
+      <p class="intro">下記ボタンよりお問い合わせください。<br>初回30分ヒアリング＋プラン作成は<strong>無料</strong>です。</p>
+
+      <div class="form-btn-wrap">
+        <a class="btn-contact" href="https://docs.google.com/forms/d/e/1FAIpQLSdF1DTNCzK1Reobkixn-2SOHFXejwcb-vwS6_T11anEGySmGA/viewform" target="_blank" rel="noopener">お問合せはこちら</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p class="small">るみ R style｜AI活用サポート</p>
+</footer>
+
+</body>
+</html>
